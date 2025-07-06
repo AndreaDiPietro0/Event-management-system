@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{%block title%}
+Contatti
+{% endblock %}
+
+{%block content%}
+    <!-- Header Section -->
+    <div class="bg-light py-4 mb-4">
+        <div class="container text-center">
+            <h1 class="display-4">Contattaci</h1>
+            <p class="lead text-muted">Contatta il nostro team per diventare un organizzatore!</p>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row">
+            <!-- Contact Information -->
+            <div class="col-md-5 mb-4">
+                <div class="card shadow-lg border-0 h-100">
+                    <div class="card-body p-4">
+                        <h4 class="card-title mb-4 text-center">Le nostre informazioni</h4>
+
+                        <div class="contact-info">
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-map-marker-alt text-success me-3 fa-2x"></i>
+                                    <h5 class="mb-0">Indirizzo</h5>
+                                </div>
+                                <p class="ms-5">Via Roma 123, Firenze, Italia</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-phone text-success me-3 fa-2x"></i>
+                                    <h5 class="mb-0">Telefono</h5>
+                                </div>
+                                <p class="ms-5">+39 123 456 7890</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-envelope text-success me-3 fa-2x"></i>
+                                    <h5 class="mb-0">Email</h5>
+                                </div>
+                                <p class="ms-5">info@eventi.com</p>
+                            </div>
+
+                            <div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-clock text-success me-3 fa-2x"></i>
+                                    <h5 class="mb-0">Orari</h5>
+                                </div>
+                                <p class="ms-5">Lunedi - Venerdi: 9:00 - 18:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-md-7 mb-4">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-4">
+                        <h4 class="card-title mb-4 text-center">Inviaci un messaggio</h4>
+
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="name" placeholder="inserisci il tuo nome">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email </label>
+                                <input type="email" class="form-control" id="email" placeholder="inserisci la tua email">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Oggetto</label>
+                                <input type="text" class="form-control" id="subject" placeholder="inserisci l'oggetto">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Messaggio</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="inserisci il tuo messaggio"></textarea>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success btn-lg shadow rounded-pill fw-bold">Invia</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-0">
+                        <div class="ratio ratio-21x9">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2881.1890424429246!2d11.253991776461927!3d43.76957397101677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132a56a680d2d6ad%3A0x93d57917efc72a03!2sFlorence%2C%20Metropolitan%20City%20of%20Florence%2C%20Italy!5e0!3m2!1sen!2sus!4v1688549275901!5m2!1sen!2sus" 
+                                    style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Media Section -->
+    <div class="container-fluid bg-light py-5 mb-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Connettiti con noi</h2>
+            <p class="lead mb-4">Seguici sui nostri social</p>
+            <div class="social-icons">
+                <a href="#" class="btn btn-outline-success btn-lg shadow rounded-pill fw-bold mx-2 mb-3"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="btn btn-outline-success btn-lg shadow rounded-pill fw-bold mx-2 mb-3"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="btn btn-outline-success btn-lg shadow rounded-pill fw-bold mx-2 mb-3"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="btn btn-outline-success btn-lg shadow rounded-pill fw-bold mx-2 mb-3"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="btn btn-outline-success btn-lg shadow rounded-pill fw-bold mx-2 mb-3"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animation for elements -->
+    <style>
+        .contact-info i {
+            transition: transform 0.3s ease;
+        }
+
+        .contact-info div:hover i {
+            transform: scale(1.2);
+        }
+
+        .social-icons a {
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .card {
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+{% endblock %}

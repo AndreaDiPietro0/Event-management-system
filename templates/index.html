@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+
+{%block title%}
+Home
+{% endblock %}
+
+{%block content%}
+    <!-- Hero Section with Dynamic Background -->
+    <div class="hero-section text-center py-5 mb-5">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeIn">Benvenuto{% if user.is_authenticated %}, {{ user.username }}{% endif %}</h1>
+            <p class="lead mb-4 animate__animated animate__fadeIn animate__delay-1s">Scopri gli eventi intorno a te</p>
+            <div class="counter-container d-flex justify-content-center mb-4 animate__animated animate__fadeIn animate__delay-2s">
+                <div class="counter-item mx-4">
+                    <div class="counter-value display-4 fw-bold" data-count="50">0</div>
+                    <div class="counter-label">Eventi</div>
+                </div>
+                <div class="counter-item mx-4">
+                    <div class="counter-value display-4 fw-bold" data-count="1000">0</div>
+                    <div class="counter-label">Partecipanti</div>
+                </div>
+                <div class="counter-item mx-4">
+                    <div class="counter-value display-4 fw-bold" data-count="20">0</div>
+                    <div class="counter-label">Luoghi</div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center animate__animated animate__fadeIn animate__delay-3s">
+                <a href="{% url 'events' %}" class="btn btn-success btn-lg shadow rounded-pill fw-bold px-5 py-3 fs-4 me-3 pulse-btn">Sfoglia Eventi</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'booking' %}" class="btn btn-outline-light btn-lg shadow rounded-pill fw-bold px-5 py-3 fs-4">Prenota ora</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg shadow rounded-pill fw-bold px-5 py-3 fs-4">Accedi per prenotare e organizzare</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Events Section -->
+    <div class="container mb-5">
+        <h2 class="text-center mb-4">Eventi in primo piano</h2>
+        <div class="row">
+            {% for event in events %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm hover-card">
+                        <img src="{{ event.image.url }}" class="card-img-top event-img" alt="{{ event.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ event.name }}</h5>
+                            <p class="card-text text-truncate">{{ event.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ event.date }} at {{ event.time }}</small>
+                                <span class="badge bg-success">{{ event.venue }}</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a href="{% url 'events' %}" class="btn btn-sm btn-outline-success shadow rounded-pill fw-bold w-100">Dettagli</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>Nessun evento disponibile al momento</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+
+
+    <!-- Call to Action Section -->
+    <div class="container-fluid bg-light py-5 mb-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Sponsorizza il tuo prossimo evento!</h2>
+            {% if user.is_authenticated and 'Organizer' in user.groups.all|stringformat:"s" %}
+                <a href="{% url 'create_event' %}" class="btn btn-success btn-lg shadow rounded-pill fw-bold">Crea un nuovo Evento</a>
+            {% elif user.is_authenticated %}
+                <p>Contatta gli admin per diventare organizzatore</p>
+            {% else %}
+                <a href="{% url 'register' %}" class="btn btn-success btn-lg shadow rounded-pill fw-bold">Iscriviti ora</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Custom CSS for this page -->
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/random/1600x900/?event') no-repeat center center;
+            background-size: cover;
+            color: white;
+            padding: 100px 0;
+            margin-top: -16px; /* To remove gap from navbar */
+        }
+
+        .event-img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .hover-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Date picker styles */
+        .date-picker-form .form-control {
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #ced4da;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .date-picker-form .form-control:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+        }
+
+        .date-picker-form .form-label {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Counter styles */
+        .counter-container {
+            color: white;
+        }
+
+        .counter-item {
+            padding: 10px;
+        }
+
+        .counter-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .counter-label {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* Pulse button effect */
+        .pulse-btn {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+
+        /* Animation delay classes */
+        .animate__delay-2s {
+            animation-delay: 2s;
+        }
+
+        .animate__delay-3s {
+            animation-delay: 3s;
+        }
+
+        /* Testimonial styles */
+        .testimonial-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .testimonial-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            flex: 0 0 100px;
+            margin-right: 20px;
+        }
+
+        .testimonial-avatar img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #28a745;
+        }
+
+        .testimonial-text {
+            flex: 1;
+        }
+
+        .testimonial-text p {
+            font-style: italic;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-role {
+            color: #6c757d;
+            margin-top: -5px;
+        }
+
+        .testimonial-rating {
+            color: #ffc107;
+            margin-top: 10px;
+        }
+
+        /* Custom carousel controls */
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 40px;
+            height: 40px;
+            background-color: #28a745;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 1;
+        }
+
+        .carousel-control-prev {
+            left: 10px;
+        }
+
+        .carousel-control-next {
+            right: 10px;
+        }
+
+        .carousel-indicators {
+            bottom: -40px;
+        }
+
+        .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #28a745;
+            opacity: 0.5;
+        }
+
+        .carousel-indicators button.active {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- JavaScript for counters and date picker -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Counter animation
+            const counters = document.querySelectorAll('.counter-value');
+            const speed = 200; // The lower the faster
+
+            counters.forEach(counter => {
+                const animate = () => {
+                    const value = +counter.getAttribute('data-count');
+                    const data = +counter.innerText;
+
+                    const time = value / speed;
+                    if (data < value) {
+                        counter.innerText = Math.ceil(data + time);
+                        setTimeout(animate, 1);
+                    } else {
+                        counter.innerText = value;
+                    }
+                }
+
+                animate();
+            });
+
+            // Random background image on each page load
+            const heroSection = document.querySelector('.hero-section');
+            const randomImage = 'https://source.unsplash.com/random/1600x900/?event&' + new Date().getTime();
+            heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${randomImage}')`;
+
+            // Date picker initialization
+            const datePicker = document.getElementById('event-date');
+            if (datePicker) {
+                // Set min date to today
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+                datePicker.setAttribute('min', formattedDate);
+                datePicker.value = formattedDate;
+
+                // Add event listener for date change
+                datePicker.addEventListener('change', function() {
+                    const selectedDate = new Date(this.value);
+                    const currentDate = new Date();
+                    currentDate.setHours(0, 0, 0, 0);
+
+                    if (selectedDate < currentDate) {
+                        alert('Per favore seleziona una data futura o odierna');
+                        this.value = formattedDate;
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}

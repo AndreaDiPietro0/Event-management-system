@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Event
+{% endblock %}
+
+{% block content %}
+    <div class="container p-3 text-center">
+        <h1>Elimina Evento</h1><br>
+
+        <div class="alert alert-danger">
+            <p>Vuoi davvero eliminare l'evento "{{ event.name }}"?</p>
+            <p>L'azione è irreversibile</p>
+        </div>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-lg shadow rounded-pill fw-bold px-5 py-3">SI, elimina evento</button>
+            <a href="{% url 'events' %}" class="btn btn-secondary btn-lg shadow rounded-pill fw-bold">Cancella</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Update Event
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-dark text-white text-center">
+                        <h3 class="mb-0">Modifica Evento</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <!-- Event Name Field -->
+                            <div class="mb-3">
+                                <label for="{{ form.name.id_for_label }}" class="form-label fw-bold">{{ form.name.label }}</label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="text-danger">{{ form.name.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Description Field -->
+                            <div class="mb-3">
+                                <label for="{{ form.description.id_for_label }}" class="form-label fw-bold">{{ form.description.label }}</label>
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="text-danger">{{ form.description.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Custom Date Widget -->
+                            <div class="mb-3">
+                                <label for="event-date" class="form-label fw-bold">{{ form.date.label }}</label>
+                                <input type="date" class="form-control date-input" id="event-date" name="{{ form.date.html_name }}" 
+                                       value="{% if form.date.value %}{{ form.date.value|date:'Y-m-d' }}{% endif %}" required>
+                                {% if form.date.errors %}
+                                    <div class="text-danger">{{ form.date.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Custom Time Widget -->
+                            <div class="mb-3">
+                                <label for="event-time" class="form-label fw-bold">{{ form.time.label }}</label>
+                                <input type="time" class="form-control time-input" id="event-time" name="{{ form.time.html_name }}" 
+                                       value="{% if form.time.value %}{{ form.time.value|time:'H:i' }}{% endif %}" required>
+                                {% if form.time.errors %}
+                                    <div class="text-danger">{{ form.time.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Venue Field -->
+                            <div class="mb-3">
+                                <label for="{{ form.venue.id_for_label }}" class="form-label fw-bold">{{ form.venue.label }}</label>
+                                {{ form.venue }}
+                                {% if form.venue.errors %}
+                                    <div class="text-danger">{{ form.venue.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Image Field -->
+                            <div class="mb-3">
+                                <label for="{{ form.image.id_for_label }}" class="form-label fw-bold">{{ form.image.label }}</label>
+                                {{ form.image }}
+                                {% if form.image.errors %}
+                                    <div class="text-danger">{{ form.image.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn btn-success btn-lg shadow rounded-pill fw-bold">Salva modifiche</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Date and Time input styles */
+        .date-input, .time-input {
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #ced4da;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .date-input:focus, .time-input:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+            outline: none;
+        }
+
+        /* Style all form controls for consistency */
+        .form-control, textarea, select {
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #ced4da;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-control:focus, textarea:focus, select:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+            outline: none;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Date picker initialization
+            const datePicker = document.getElementById('event-date');
+            if (datePicker) {
+                // Set min date to today
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+                // Only set default date if no value is already set
+                if (!datePicker.value) {
+                    datePicker.value = formattedDate;
+                }
+
+                datePicker.setAttribute('min', formattedDate);
+
+                // Add event listener for date change
+                datePicker.addEventListener('change', function() {
+                    const selectedDate = new Date(this.value);
+                    const currentDate = new Date();
+                    currentDate.setHours(0, 0, 0, 0);
+
+                    if (selectedDate < currentDate) {
+                        alert('Per favore seleziona una data futura o odierna');
+                        this.value = formattedDate;
+                    }
+                });
+            }
+
+            // Time picker initialization
+            const timePicker = document.getElementById('event-time');
+            if (timePicker) {
+                // Set default time to current time or 12:00 if no value is already set
+                if (!timePicker.value) {
+                    const now = new Date();
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    const currentTime = `${hours}:${minutes}`;
+                    timePicker.value = currentTime;
+                }
+
+                // Add event listener for time change if needed
+                timePicker.addEventListener('change', function() {
+                    // You can add validation here if needed
+                    console.log('Time selected:', this.value);
+                });
+            }
+        });
+    </script>
+{% endblock %}

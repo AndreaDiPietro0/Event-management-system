@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Event Attendees - {{ event.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="container p-3">
+        <h1 class="text-center">Partecipanti per l'evento: {{ event.name }}</h1>
+        
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                Dettagli Evento
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ event.name }}</h5>
+                <p class="card-text">{{ event.description }}</p>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item"><strong>Data:</strong> {{ event.date }}</li>
+                    <li class="list-group-item"><strong>Ora:</strong> {{ event.time }}</li>
+                    <li class="list-group-item"><strong>Luogo:</strong> {{ event.venue }}</li>
+                </ul>
+            </div>
+        </div>
+        
+        {% if attendees %}
+            <h2>Utenti Registrati all'evento ({{ attendees.count }})</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Telefono</th>
+                        <th>Data di prenotazione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attendee in attendees %}
+                        <tr>
+                            <td>{{ attendee.user.username }}</td>
+                            <td>{{ attendee.user_phone }}</td>
+                            <td>{{ attendee.registration_date }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info">
+                Ancora nessun partecipante registrato a questo evento.
+            </div>
+        {% endif %}
+        
+
+    </div>
+{% endblock %}

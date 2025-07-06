@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="mb-0">Il mio account</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-md-end">
+                            <strong>nome:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {{ user.username }}
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-md-end">
+                            <strong>Email:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {{ user.email }}
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-md-end">
+                            <strong>Ruolo:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {% if 'Organizer' in user.groups.all|stringformat:"s" %}
+                                Organizer
+                            {% elif user.groups.all.0.name %}
+                                {{ user.groups.all.0.name }}
+                            {% else %}
+                                Nessun ruolo assegnato
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-md-end">
+                            <strong>Data di iscrizione:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {{ user.date_joined|date:"F d, Y" }}
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-md-end">
+                            <strong>Ultimo accesso:</strong>
+                        </div>
+                        <div class="col-md-8">
+                            {{ user.last_login|date:"F d, Y H:i" }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        {% if 'Organizer' in user.groups.all|stringformat:"s" %}
+                            <a href="{% url 'create_event' %}" class="btn btn-success btn-lg shadow rounded-pill fw-bold px-5 py-3 fs-4">Crea un nuovo evento</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
