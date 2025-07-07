@@ -6,7 +6,7 @@ Progetto di una web app in Django di un sistema di gestione e creazione eventi.
 ## Funzionalità
 
 - Autenticazione e registrazione di utenti
-- Gli utenti si dividono in due gruppi con ruoli diversi, definiti in fase di registrazione:
+- Gli utenti si dividono in due gruppi con ruoli diversi, scelti in fase di registrazione:
   - **Partecipanti**
   - **Organizzatori**
 - Creazione di eventi;
