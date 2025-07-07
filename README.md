@@ -7,11 +7,11 @@ Progetto di una web app in Django di un sistema di gestione e creazione eventi.
 
 - Autenticazione e registrazione di utenti
 - Gli utenti si dividono in due gruppi con ruoli diversi, definiti in fase di registrazione:
-  - **Partecipanti**: 
+  - **Partecipanti**
   - **Organizzatori**
-- Una scheda contatti
-- Creazione di eventi
-- Gestione di eventi da parte degli organizzatori
+- Creazione di eventi;
+- Gestione di eventi da parte degli organizzatori;
+- Possibilità di vedere una scheda contatti;
 
 ## Setup
 
@@ -28,7 +28,7 @@ Progetto di una web app in Django di un sistema di gestione e creazione eventi.
    ```
    python manage.py setup_groups
    ```
-5. (Optional) Creare utenti di prova:
+5. (Opzionale) Creare utenti di prova:
    ```
    python manage.py setup_test_users
    ```
@@ -43,25 +43,31 @@ Progetto di una web app in Django di un sistema di gestione e creazione eventi.
 ## Ruoli e permessi dei vari utenti
 
 ### Partecipanti
-- Sfogliare gli eventi
-- Iscriversi agli eventi
-- Disicriversi agli eventi
-- Vedere le proprie prenotazioni e annullarle
-- Vedere il numero di partecipanti agli eventi
-- Accedere alla propria area personale per vedere i dati privati
+- Sfogliare gli eventi;
+- Iscriversi agli eventi;
+- Disicriversi agli eventi;
+- Vedere le proprie prenotazioni e annullarle;
+- Vedere il numero di partecipanti agli eventi;
+- Accedere alla propria area personale per vedere i dati privati.
 
-### Organizer
-- Tutti i permessi dei partecipanti
-- Creare nuovi eventi, dalla home page, dalla sezione eventi e dall'area personale. Si può inserire il nome, la descrizione, la data, il luogo e l' ora.
-- Modificare gli eventi creati
-- Eliminare gli eventi creati
-- Vedere la lista dei partecipanti degli eventi creati con i loro dati personali
+### Organizzatori
+- Hanno tutti i permessi dei partecipanti;
+- Creare nuovi eventi, dalla home page, dalla sezione eventi e dall'area personale. Si può inserire il nome, la descrizione, la data, il luogo e l' ora dell'evento;
+- Modificare gli eventi creati, nella sezione eventi;
+- Eliminare gli eventi creati, nella sezione eventi;
+- Vedere la lista dei partecipanti degli eventi creati con i loro dati personali.
 
 ## Utilizzo
 
-1. Effettuare il login con nome utente e password o registrare un nuovo utente, con nome, email, password e scegliere il ruolo.
-2. Sfogliare gli eventi dall'home page
-3. Registrarsi ad un evento dalla sezione Prenota, inserendo il numero di telefono e l'evento
-4. Vedere le proprie registrazioni dalla sezione apposita
-5. Se sei un organizzatore puoi creare un nuovo evento, modificarlo, eliminarlo e vedere i dettagli dei partecipanti, nella sezione Eventi
+1. Registrare un nuovo utente, con nome, email, password e scegliere il ruolo;
+2. Effettuare il login con nome e password;
+3. Sfogliare gli eventi dall'home page
+4. Registrarsi ad un evento dalla sezione Prenota, inserendo il numero di telefono e l'evento
+5. Vedere le proprie registrazioni dalla sezione apposita
+6. Se sei un organizzatore puoi creare un nuovo evento, modificarlo, eliminarlo e vedere i dettagli dei partecipanti, nella sezione Eventi
+
+
+### Dati gia creati di due utenti, per verificare il funzionamento da subito:
+Organizzatore: Andrea00, andrea00@gmail.com, pass: AAAEEECCC0@
+Partecipante: Mario55, mario55@gmail.com, pass: MMMPPP55@
 
