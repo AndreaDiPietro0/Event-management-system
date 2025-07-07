@@ -9,8 +9,13 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 
 import os
 
-from django.core.wsgi import get_wsgi_application
-
+# Set default settings module
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Event_management_system.settings")
 
-application = get_wsgi_application()
+# Set up Django
+import django
+django.setup()
+
+# Create WSGI application
+from django.core.handlers.wsgi import WSGIHandler
+application = WSGIHandler()
