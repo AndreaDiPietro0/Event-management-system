@@ -19,3 +19,5 @@ django.setup()
 # Create WSGI application
 from django.core.handlers.wsgi import WSGIHandler
 application = WSGIHandler()
+
+app = application
