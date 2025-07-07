@@ -1,73 +1,67 @@
 # Event Management System
 
-A Django-based event management system that allows users to create, view, and register for events.
+Progetto di una web app in Django di un sistema di gestione e creazione eventi.
 
-## Features
 
-- User authentication (login, logout, registration)
-- Two user roles with distinct permissions:
-  - **Attendee**: Can view events, register/unregister for events, and view their own registrations
-  - **Organizer**: Has all attendee permissions, plus can create, update, and delete their own events, and view the list of attendees for their events
-- Event creation and management
-- Event registration and attendance tracking
+## Funzionalità
+
+- Autenticazione e registrazione di utenti
+- Gli utenti si dividono in due gruppi con ruoli diversi, definiti in fase di registrazione:
+  - **Partecipanti**: 
+  - **Organizzatori**
+- Una scheda contatti
+- Creazione di eventi
+- Gestione di eventi da parte degli organizzatori
 
 ## Setup
 
-1. Clone the repository
-2. Install dependencies:
+1. Clona la repository
+2. Installa dipendenze:
    ```
    pip install -r requirements.txt
    ```
-3. Apply migrations:
+3. Applicazione le migrations:
    ```
    python manage.py migrate
    ```
-4. Set up user groups and permissions:
+4. Impostare gruppi di utenti e autorizzazioni:
    ```
    python manage.py setup_groups
    ```
-5. (Optional) Create test users:
+5. (Optional) Creare utenti di prova:
    ```
    python manage.py setup_test_users
    ```
-   This creates two users:
-   - Attendee: username `attendee`, password `attendee123`
-   - Organizer: username `organizer`, password `organizer123`
-6. Run the development server:
+   Questo crea due utenti:
+   - Partecipante: username `attendee`, password `attendee123`
+   - Organizzatore: username `organizer`, password `organizer123`
+6. Avviare il server di sviluppo:
    ```
    python manage.py runserver
    ```
 
-## User Roles and Permissions
+## Ruoli e permessi dei vari utenti
 
-### Attendee
-- View events
-- Register for events
-- Unregister from events
-- View own registrations
+### Partecipanti
+- Sfogliare gli eventi
+- Iscriversi agli eventi
+- Disicriversi agli eventi
+- Vedere le proprie prenotazioni e annullarle
+- Vedere il numero di partecipanti agli eventi
+- Accedere alla propria area personale per vedere i dati privati
 
 ### Organizer
-- All Attendee permissions
-- Create new events
-- Update own events
-- Delete own events
-- View list of attendees for own events
+- Tutti i permessi dei partecipanti
+- Creare nuovi eventi, dalla home page, dalla sezione eventi e dall'area personale. Si può inserire il nome, la descrizione, la data, il luogo e l' ora.
+- Modificare gli eventi creati
+- Eliminare gli eventi creati
+- Vedere la lista dei partecipanti degli eventi creati con i loro dati personali
 
-## Usage
+## Utilizzo
 
-1. Register as a new user or log in with an existing account
-2. Browse events on the Events page
-3. Register for events you want to attend
-4. View your registrations on the My Registrations page
-5. If you're an Organizer, you can create new events and manage your events
+1. Effettuare il login con nome utente e password o registrare un nuovo utente, con nome, email, password e scegliere il ruolo.
+2. Sfogliare gli eventi dall'home page
+3. Registrarsi ad un evento dalla sezione Prenota, inserendo il numero di telefono e l'evento
+4. Vedere le proprie registrazioni dalla sezione apposita
+5. Se sei un organizzatore puoi creare un nuovo evento, modificarlo, eliminarlo e vedere i dettagli dei partecipanti, nella sezione Eventi
 
-## Adding Users to Groups
-
-To add a user to a group:
-
-1. Create a user through the registration page
-2. Log in as an admin
-3. Go to the admin panel
-4. Navigate to Users
-5. Select the user
-6. Assign the user to either the Attendee or Organizer group
