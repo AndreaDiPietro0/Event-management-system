@@ -1,6 +1,7 @@
 # Event Management System
 
 Progetto di una web app in Django di un sistema di gestione e creazione eventi.
+Il sito è visitiabile a questo link http://event-management-system-bay-phi.vercel.app/
 
 
 ## Funzionalità
