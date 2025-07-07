@@ -9,7 +9,7 @@ class Event(models.Model):
     date = models.DateField()
     time = models.TimeField()
     venue = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='images/')
+    image = models.URLField(max_length=500, default='https://placehold.co/600x400', blank=True)
     organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='organized_events', null=True)
 
     def __str__(self):
