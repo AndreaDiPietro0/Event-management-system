@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+
+import psycopg2
 from dotenv import load_dotenv
+from decouple import config
 
 # Load environment variables from .env file
 load_dotenv()
@@ -25,10 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-y)cyp-52#g(hzxla_j15u7ks!l==o9rj!p(o)k6!8yi&qgmh*#')
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
+DEBUG = True
 
 
 ALLOWED_HOSTS = [
@@ -85,18 +88,16 @@ WSGI_APPLICATION = "Event_management_system.wsgi.application"
 import dj_database_url
 
 # Use DATABASE_URL environment variable if available, otherwise use SQLite
-DATABASE_URL = os.environ.get('DATABASE_URL')
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.config(default=DATABASE_URL)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'HOST': config('DB_HOST'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'PORT': config('DB_PORT'),
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
